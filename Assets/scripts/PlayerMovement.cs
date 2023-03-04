@@ -2,42 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    //[SerializeField] private float movementSpeed = 5f;
-    //[SerializeField] private float jumpForce = 10f;
 
-    //private Rigidbody rb;
+    [SerializeField] private FloatingJoystick _joystick;
 
-    //private void Awake()
-    //{
-    //    rb = GetComponent<Rigidbody>();
-    //}
+    [SerializeField] private AnimatorController _animatorController;
 
-    //private void FixedUpdate()
-    //{
-    //    Move();
-    //    Jump();
-    //}
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _rotateSpeed;
 
-    //private void Move()
-    //{
-    //    float horizontalMovement = Input.GetAxis("Horizontal");
-    //    float verticalMovement = Input.GetAxis("Vertical");
+    private Rigidbody _rigidbody;
 
-    //    Vector3 movement = new Vector3(horizontalMovement, 0f, verticalMovement);
+    private Vector3 _moveVector;
 
-    //    rb.AddForce(movement * movementSpeed, ForceMode.Acceleration);
-    //}
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
-    //private void Jump()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.01f)
-    //    {
-    //        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    //    }
-    //}
+    private void Update()
+    {
+        Move();
+    }
 
+    private void Move()
+    {
+        _moveVector = Vector3.zero;
+        _moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
+        _moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
+
+        if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+        {
+            Vector3 direction = Vector3.RotateTowards(transform.forward, _moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(direction);
+
+           _animatorController.PlayRun();
+        }
+
+        else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
+        {
+            _animatorController.PlayIdle();
+        }
+
+        _rigidbody.MovePosition(_rigidbody.position + _moveVector);
+    }
 
 
 }
