@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1834172619807612502, guid: 5d2d04a1b39c88e4db8c193f541b25d7, type: 3}
-  speed: 1
+  speed: 2
 --- !u!114 &3727412471013965527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,7 +1358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6510250577363920721}
   maxEnemies: 5
-  spawnDelay: 5
+  spawnDelay: 2
   spawnPositions:
   - {fileID: 0}
   - {fileID: 0}
