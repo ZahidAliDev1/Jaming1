@@ -5,36 +5,26 @@ public class EnemyController : MonoBehaviour
 {
 
 
-
-    public Transform player; // Reference to the player object
-    public float speed = 5f; // The speed at which the enemy moves towards the player
-
-    private bool isPaused = false; // Flag to check if the game is paused
-
-    void Start()
-    {
-
-   
-        // Find the player object by its tag
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    public Transform player;
+    public float speed;
 
     void Update()
     {
-        // Check if the game is paused
-        if (Time.timeScale == 0)
-        {
-            isPaused = true;
-            return;
-        }
-        else
-        {
-            isPaused = false;
-        }
+        // Get the direction from the enemy to the player
+        Vector3 direction = player.position - transform.position;
 
-        // Move the enemy towards the player
-        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+        // Normalize the direction vector so that it has a magnitude of 1
+        direction.Normalize();
+
+        // Calculate the enemy's new position by moving in the direction of the player at the specified speed
+        Vector3 newPosition = transform.position + direction * speed * Time.deltaTime;
+
+        // Set the enemy's new position
+        transform.position = newPosition;
+
+        // Rotate the enemy to face the player's position
+        transform.LookAt(player.position);
     }
 
-  
+
 }
