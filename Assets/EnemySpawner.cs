@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -24,7 +25,8 @@ public class EnemySpawner : MonoBehaviour
             if (currentEnemies < maxEnemies)
             {
                 Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
-                Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation);
+                GameObject g = Instantiate(enemyPrefab, spawnPosition.position, spawnPosition.rotation);
+                g.GetComponent<EnemyController>().player = GameObject.FindGameObjectWithTag("Player").transform;
                 currentEnemies++;
             }
         }
