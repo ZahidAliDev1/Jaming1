@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class Grenade : MonoBehaviour
 {
+
+  
+
     public float delay = 3f;
     public float radus = 5f;
     public float force = 2000f;
