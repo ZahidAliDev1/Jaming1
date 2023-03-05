@@ -18,7 +18,7 @@ public class DestroyOnColliision : MonoBehaviour
         {
             Destroy(gameObject);
             score += 1;
-            scoreText.text = "Score: " + score.ToString();
+          //  scoreText.text = "Score: " + score.ToString();
         }
     }
 }

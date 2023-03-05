@@ -1,7 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+
+
     public Transform player; // Reference to the player object
     public float speed = 5f; // The speed at which the enemy moves towards the player
 
@@ -9,6 +13,8 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+
+   
         // Find the player object by its tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -29,4 +35,6 @@ public class EnemyController : MonoBehaviour
         // Move the enemy towards the player
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
     }
+
+  
 }
